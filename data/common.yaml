@@ -2,7 +2,9 @@
 
 simp_docker::release_type: redhat
 simp_docker::manage_sysctl: true
+simp_docker::docker_bridge_dev: docker0
 simp_docker::other_options: {}
+
 
 simp_docker::default_options:
   redhat:

@@ -18,4 +18,4 @@ fixtures:
       ref: 3.8.0
     stdlib:
       repo: https://github.com/simp/puppetlabs-stdlib
-      ref: v2.2.1
+      ref: 4.22.0

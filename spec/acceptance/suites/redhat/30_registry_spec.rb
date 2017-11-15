@@ -1,3 +1,12 @@
+# This test is to declare functionality of Docker on EL7 machines.
+#
+# This module needs to install Docker, and be able to run:
+#   - use a complicated docker::run to run a container registry
+#   - use the SIMP iptables module to open the port
+#   - each host should upload their custom nginx container to the registry
+#   - each host should run every custom nginc container
+#   - each host should be able to curl all custom nginx containers on all hosts
+#
 require 'spec_helper_acceptance'
 
 test_name 'docker'
@@ -7,6 +16,14 @@ describe 'docker' do
   registry    = fact_on(only_host_with_role(hosts,'registry'), 'fqdn')
 
   let(:manifest) { <<-EOS
+    class { 'iptables':
+      optimize_rules => false
+    }
+    iptables::listen::tcp_stateful { 'ssh':
+      trusted_nets => ['0.0.0.0/0'],
+      dports       => [22]
+    }
+
     include 'simp_docker'
     EOS
   }
@@ -37,13 +54,14 @@ describe 'docker' do
             ],
             require => File['/tmp/auth/htpasswd']
           }
+          iptables::listen::tcp_stateful { 'docker registry':
+            trusted_nets => ['0.0.0.0/0'],
+            dports       => [5000]
+          }
         EOF
+        apply_manifest_on(host, run_manifest)
         apply_manifest_on(host, run_manifest, catch_failures: true)
         apply_manifest_on(host, run_manifest, catch_changes: true)
-      end
-      it 'should open port 5000' do
-        on(host, 'iptables -A INPUT -p tcp --dport 5000 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT')
-        on(host, 'iptables -A OUTPUT -p tcp --sport 5000 -m conntrack --ctstate ESTABLISHED -j ACCEPT')
       end
     end
   end
@@ -87,16 +105,13 @@ describe 'docker' do
               image  => '#{registry}:5000/custom_nginx_#{instance}',
               ports  => ['808#{i}:80'],
             }
-            # DOESN'T WORK FOR NOW
-            # include 'iptables'
-            # iptables::listen::tcp_stateful { 'custom_nginx_#{instance}':
-            #   trusted_nets => ['ANY'],
-            #   dports       => [808#{i}]
-            # }
+            iptables::listen::tcp_stateful { 'custom_nginx_#{instance}':
+              trusted_nets => ['0.0.0.0/0'],
+              dports       => [808#{i}]
+            }
           EOF
-          on(host, "iptables -A INPUT -p tcp --dport 808#{i} -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT")
-          on(host, "iptables -A OUTPUT -p tcp --sport 808#{i} -m conntrack --ctstate ESTABLISHED -j ACCEPT")
         end
+        apply_manifest_on(host, run_manifest)
         apply_manifest_on(host, run_manifest, catch_failures: true)
         apply_manifest_on(host, run_manifest, catch_changes: true)
       end
@@ -104,7 +119,7 @@ describe 'docker' do
     it 'should be running each container on each host' do
       hosts_array.each do |host|
         hosts_array.each_with_index do |instance,i|
-          result = retry_on(host, "curl localhost:808#{i}").stdout
+          result = retry_on(host, "curl localhost:808#{i}", max_retries: 5, verbose: true).stdout
           expect(result).to match(/Hello from Docker on SIMP/)
         end
       end

@@ -1,3 +1,11 @@
+# This test is to declare functionality of Docker on EL7 machines.
+#
+# This module needs to install Docker, and be able to run:
+#   - the 'hello-world' container, from Puppet
+#   - the stock 'nginx' container, from Puppet
+#   - build a custom 'nginx' container, built with Puppet
+#   - run the custom 'nginx' container and curl it
+#
 require 'spec_helper_acceptance'
 
 test_name 'docker using redhat provided packages'
@@ -12,6 +20,9 @@ describe 'docker using redhat provided packages' do
   context 'basic docker usage' do
     hosts.each do |host|
       it 'should apply with no errors' do
+        on(host, "sed -i 's/enforce_for_root//g' /etc/pam.d/*")
+        on(host, 'echo "root:password" | chpasswd --crypt-method SHA256')
+
         on(host, 'yum install -y epel-release', run_in_parallel: true)
         # Set up base modules and hieradata
         # set_hieradata_on(host,hieradata)

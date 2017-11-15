@@ -3,9 +3,16 @@ require 'spec_helper'
 describe 'simp_docker' do
 
   context 'supported operating systems' do
-    on_supported_os.each do |os, facts|
+    on_supported_os.each do |os, os_facts|
       context "on #{os}" do
         let(:facts) do
+          facts = os_facts
+          facts[:networking] = {
+            interfaces: {
+              lo: nil,
+              em1: nil
+            }
+          }
           facts
         end
 
@@ -20,6 +27,40 @@ describe 'simp_docker' do
             log_driver: 'journald',
             docker_group: 'dockerroot',
           ) }
+          it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
+          it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
+
+          it { is_expected.to contain_class('simp_docker::iptables') }
+          it { is_expected.to contain_iptables__rule('Allow Docker IPtables rules').with(
+            first:    true,
+            absolute: true,
+            comment:  'Docker Required Rules',
+            header:   false,
+            apply_to: 'ipv4',
+            content: <<-EOF.gsub(/^\s+/,'')
+              -A FORWARD -j DOCKER-ISOLATION
+              -A FORWARD -o docker0 -j DOCKER
+              -A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+              -A FORWARD -i docker0 ! -o docker0 -j ACCEPT
+              -A FORWARD -i docker0 -o docker0 -j ACCEPT
+              -A DOCKER-ISOLATION -j RETURN
+            EOF
+          ) }
+        end
+
+        context 'after docker0 has been created' do
+          let(:facts) {
+            os_facts.merge(
+              networking: {
+                interfaces: {
+                  lo: nil,
+                  em1: nil,
+                  docker0: nil
+                }
+              }
+            )
+          }
+          it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
           it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
         end
@@ -44,8 +85,6 @@ describe 'simp_docker' do
             dns: ['8.8.8.8'],
             log_level: 'info'
           ) }
-          it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
-          it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
         end
 
         context 'simp_docker with the ce release_type and options' do
@@ -65,8 +104,6 @@ describe 'simp_docker' do
             dns: ['8.8.8.8'],
             log_level: 'info'
           ) }
-          it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
-          it { is_expected.to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
         end
 
         context 'simp_docker with the ee release_type and options' do

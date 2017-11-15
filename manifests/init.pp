@@ -2,6 +2,7 @@
 class simp_docker (
   Simp_docker::Type $release_type,
   Boolean $manage_sysctl,
+  String $docker_bridge_dev,
 
   Hash $default_options,
   Optional[Hash] $other_options,
@@ -10,12 +11,20 @@ class simp_docker (
 ) {
 
   # include "simp_docker::${type}"
-
-  if $manage_sysctl {
+  $_docker_bridge_up = ($docker_bridge_dev in $facts['networking']['interfaces'].keys)
+  if $manage_sysctl and $_docker_bridge_up {
     sysctl {
-      'net.bridge.bridge-nf-call-iptables': value  => 1 ;
-      'net.bridge.bridge-nf-call-ip6tables': value  => 1 ;
+      default:
+        before => Class['docker'];
+      'net.bridge.bridge-nf-call-iptables':  value => 1 ;
+      'net.bridge.bridge-nf-call-ip6tables': value => 1 ;
     }
+  }
+
+  if $iptables {
+    include 'simp_docker::iptables'
+
+    Class['simp_docker::iptables'] -> Class['docker']
   }
 
   class { 'docker':
