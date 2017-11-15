@@ -1,13 +1,21 @@
 ---
 fixtures:
   repositories:
-    augeasproviders_core: https://github.com/simp/augeasproviders_core
-    augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl
+    augeasproviders_core:
+      repo: https://github.com/simp/augeasproviders_core
+      ref: 2.1.4
+    augeasproviders_sysctl:
+      repo: https://github.com/simp/augeasproviders_sysctl
+      ref: 2.2.0
     docker:
       repo: https://github.com/simp/puppetlabs-docker
       ref: 1.0.1
-    iptables: https://github.com/simp/pupmod-simp-iptables
-    simplib: https://github.com/simp/pupmod-simp-simplib
-    stdlib: https://github.com/simp/puppetlabs-stdlib
-  symlinks:
-    simp_docker: "#{source_dir}"
+    iptables:
+      repo: https://github.com/simp/pupmod-simp-iptables
+      ref: 6.0.3
+    simplib:
+      repo: https://github.com/simp/pupmod-simp-simplib
+      ref: 3.8.0
+    stdlib:
+      repo: https://github.com/simp/puppetlabs-stdlib
+      ref: v2.2.1

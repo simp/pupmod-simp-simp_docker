@@ -5,15 +5,7 @@ test_name 'docker using redhat provided packages'
 describe 'docker using redhat provided packages' do
 
   let(:manifest) { <<-EOS
-      sysctl {'net.bridge.bridge-nf-call-iptables':  value => 1 }
-      sysctl {'net.bridge.bridge-nf-call-ip6tables': value => 1 }
-      class { 'simp_docker':
-        type   => 'redhat',
-        before => [
-          Sysctl['net.bridge.bridge-nf-call-iptables'],
-          Sysctl['net.bridge.bridge-nf-call-ip6tables']
-        ]
-      }
+      include 'simp_docker'
     EOS
   }
 
@@ -22,7 +14,8 @@ describe 'docker using redhat provided packages' do
       it 'should apply with no errors' do
         on(host, 'yum install -y epel-release', run_in_parallel: true)
         # Set up base modules and hieradata
-        # set_hieradata_on( host,hieradata)
+        # set_hieradata_on(host,hieradata)
+        apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end

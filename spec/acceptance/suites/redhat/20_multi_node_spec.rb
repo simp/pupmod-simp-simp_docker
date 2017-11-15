@@ -5,18 +5,7 @@ test_name 'docker'
 describe 'docker' do
 
   let(:manifest) { <<-EOS
-      sysctl {'net.bridge.bridge-nf-call-iptables':  value => 1 }
-      sysctl {'net.bridge.bridge-nf-call-ip6tables': value => 1 }
-
-      sysctl {'net.bridge.bridge-nf-call-iptables':  value => 1 }
-      sysctl {'net.bridge.bridge-nf-call-ip6tables': value => 1 }
-      class { 'simp_docker':
-        type   => 'redhat',
-        before => [
-          Sysctl['net.bridge.bridge-nf-call-iptables'],
-          Sysctl['net.bridge.bridge-nf-call-ip6tables']
-        ]
-      }
+    include 'simp_docker'
     EOS
   }
 

@@ -1,6 +1,7 @@
 ---
 
-simp_docker::type: redhat
+simp_docker::release_type: redhat
+simp_docker::manage_sysctl: true
 simp_docker::other_options: {}
 
 simp_docker::default_options:
@@ -18,7 +19,7 @@ simp_docker::default_options:
     manage_epel: false
     # selinux_enabled: "%{facts.selinux_enabled}"
   ee:
-    package_name: docker-ee
+    docker_ee: true
     log_driver: journald
     manage_epel: false
     # selinux_enabled: "%{facts.selinux_enabled}"
