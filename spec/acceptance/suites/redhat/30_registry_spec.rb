@@ -17,7 +17,7 @@ describe 'docker' do
 
   let(:manifest) { <<-EOS
     class { 'iptables':
-      optimize_rules => false
+      ignore => [ 'DOCKER','docker0' ]
     }
     iptables::listen::tcp_stateful { 'ssh':
       trusted_nets => ['0.0.0.0/0'],
@@ -25,6 +25,7 @@ describe 'docker' do
     }
 
     include 'simp_docker'
+    Class['iptables'] ~> Class['docker']
     EOS
   }
 
@@ -85,7 +86,8 @@ describe 'docker' do
         apply_manifest_on(host, run_manifest, catch_failures: true)
         # The docker::registry class is not idempotent
         # https://github.com/puppetlabs/puppetlabs-docker/issues/15
-        # apply_manifest_on(host, run_manifest, catch_changes: true)
+        # It should be now
+        apply_manifest_on(host, run_manifest, catch_changes: true)
       end
 
       it 'should push each hosts custom image to the registry' do
@@ -119,7 +121,7 @@ describe 'docker' do
     it 'should be running each container on each host' do
       hosts_array.each do |host|
         hosts_array.each_with_index do |instance,i|
-          result = retry_on(host, "curl localhost:808#{i}", max_retries: 5, verbose: true).stdout
+          result = retry_on(host, "curl localhost:808#{i}", max_retries: 8, verbose: true).stdout
           expect(result).to match(/Hello from Docker on SIMP/)
         end
       end

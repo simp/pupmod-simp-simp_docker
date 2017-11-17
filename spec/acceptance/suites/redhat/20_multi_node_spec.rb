@@ -14,7 +14,7 @@ describe 'docker' do
 
   let(:manifest) { <<-EOS
     class { 'iptables':
-      optimize_rules => false
+      ignore => [ 'DOCKER','docker0' ]
     }
     iptables::listen::tcp_stateful { 'ssh':
       trusted_nets => ['0.0.0.0/0'],
@@ -51,7 +51,7 @@ describe 'docker' do
         apply_manifest_on(host, run_manifest, run_in_parallel: true)
         apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
         apply_manifest_on(host, run_manifest, catch_changes: true, run_in_parallel: true)
-        result = retry_on(host, 'curl localhost:80', max_retries: 5, verbose: true).stdout
+        result = retry_on(host, 'curl localhost:80', verbose: true).stdout
         expect(result).to match(/Hello from Docker on SIMP/)
       end
     end
@@ -60,7 +60,7 @@ describe 'docker' do
   context 'all hosts should be hosting the nginx page on port 80' do
     hosts.permutation(2).to_a.each do |first, second|
       it "#{first} can connect to #{second}" do
-        result = retry_on(first, "curl #{second}:80", max_retries: 5, verbose: true).stdout
+        result = retry_on(first, "curl #{second}:80", max_retries: 8, verbose: true).stdout
         expect(result).to match(/Hello from Docker on SIMP/)
         expect(result).to match(/I was built on #{second}/)
      end

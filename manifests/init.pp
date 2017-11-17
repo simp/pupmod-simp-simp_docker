@@ -3,11 +3,10 @@ class simp_docker (
   Simp_docker::Type $release_type,
   Boolean $manage_sysctl,
   String $docker_bridge_dev,
+  # Boolean $iptables_hack,
 
   Hash $default_options,
   Optional[Hash] $other_options,
-
-  Boolean $iptables = simplib::lookup('simp_options::firewall', { 'default_value' => true }),
 ) {
 
   # include "simp_docker::${type}"
@@ -21,11 +20,16 @@ class simp_docker (
     }
   }
 
-  if $iptables {
-    include 'simp_docker::iptables'
-
-    Class['simp_docker::iptables'] -> Class['docker']
-  }
+  # if $iptables_hack {
+  #   include 'iptables'
+  #
+  #   exec { 'add docker chain back':
+  #     command     => '/sbin/iptables -t filter -N DOCKER || /usr/bin/true',
+  #     # unless      => '/sbin/iptables -t nat -nvL | /usr/bin/grep DOCKER',
+  #     refreshonly => true,
+  #     subscribe   => Iptables_optimize['/etc/sysconfig/iptables']
+  #   }
+  # }
 
   class { 'docker':
     * => $default_options[$release_type] + $other_options

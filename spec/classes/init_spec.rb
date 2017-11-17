@@ -29,23 +29,6 @@ describe 'simp_docker' do
           ) }
           it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
           it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
-
-          it { is_expected.to contain_class('simp_docker::iptables') }
-          it { is_expected.to contain_iptables__rule('Allow Docker IPtables rules').with(
-            first:    true,
-            absolute: true,
-            comment:  'Docker Required Rules',
-            header:   false,
-            apply_to: 'ipv4',
-            content: <<-EOF.gsub(/^\s+/,'')
-              -A FORWARD -j DOCKER-ISOLATION
-              -A FORWARD -o docker0 -j DOCKER
-              -A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-              -A FORWARD -i docker0 ! -o docker0 -j ACCEPT
-              -A FORWARD -i docker0 -o docker0 -j ACCEPT
-              -A DOCKER-ISOLATION -j RETURN
-            EOF
-          ) }
         end
 
         context 'after docker0 has been created' do
