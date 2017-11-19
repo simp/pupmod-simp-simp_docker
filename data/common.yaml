@@ -13,11 +13,11 @@ simp_docker::default_options:
     service_overrides_template: false
     selinux_enabled: "true" # has to be a string???
     manage_epel: false
-    package_name: docker
+    docker_ce_package_name: docker
     log_driver: journald
     docker_group: dockerroot
   ce:
-    package_name: docker-ce
+    docker_ce_package_name: docker-ce
     log_driver: journald
     manage_epel: false
     # selinux_enabled: "%{facts.selinux_enabled}"

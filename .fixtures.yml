@@ -8,14 +8,14 @@ fixtures:
       repo: https://github.com/simp/augeasproviders_sysctl
       ref: 2.2.0
     docker:
-      repo: https://github.com/simp/puppetlabs-docker
+      repo: https://github.com/simp/pupmod-puppetlabs-docker
       ref: 1.0.2
     iptables:
       repo: https://github.com/simp/pupmod-simp-iptables
-      ref: 6.0.3
+      ref: 6.1.0
     simplib:
       repo: https://github.com/simp/pupmod-simp-simplib
       ref: 3.8.0
     stdlib:
       repo: https://github.com/simp/puppetlabs-stdlib
-      ref: 4.22.0
+      ref: 4.19.0
