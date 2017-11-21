@@ -55,6 +55,9 @@ describe 'docker using redhat provided packages' do
             }
           EOF
           apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
+          sleep 20
+          apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
+          sleep 20
           apply_manifest_on(host, run_manifest, catch_changes: true, run_in_parallel: true)
           result = retry_on(host, 'curl localhost:80').stdout
           expect(result).to match(/Thank you for using nginx/)
@@ -101,6 +104,9 @@ describe 'docker using redhat provided packages' do
             }
           EOF
           apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
+          sleep 20
+          apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
+          sleep 20
           apply_manifest_on(host, run_manifest, catch_changes: true, run_in_parallel: true)
           result = retry_on(host, 'curl localhost:80').stdout
           expect(result).to match(/Hello from Docker on SIMP/)

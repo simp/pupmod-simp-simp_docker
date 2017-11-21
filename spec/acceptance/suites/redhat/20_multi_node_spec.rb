@@ -14,7 +14,7 @@ describe 'docker' do
 
   let(:manifest) { <<-EOS
     class { 'iptables':
-      ignore => [ 'DOCKER','docker0' ]
+      ignore => [ 'DOCKER','docker' ]
     }
     iptables::listen::tcp_stateful { 'ssh':
       trusted_nets => ['0.0.0.0/0'],
@@ -28,7 +28,6 @@ describe 'docker' do
   context 'set up docker on hosts' do
     hosts.each do |host|
       it 'should apply with no errors' do
-        apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end
@@ -49,7 +48,9 @@ describe 'docker' do
           }
         EOF
         apply_manifest_on(host, run_manifest, run_in_parallel: true)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_changes: true, run_in_parallel: true)
         result = retry_on(host, 'curl localhost:80', verbose: true).stdout
         expect(result).to match(/Hello from Docker on SIMP/)

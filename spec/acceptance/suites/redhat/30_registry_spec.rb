@@ -17,15 +17,18 @@ describe 'docker' do
 
   let(:manifest) { <<-EOS
     class { 'iptables':
-      ignore => [ 'DOCKER','docker0' ]
+      ignore => [ 'DOCKER','docker' ]
     }
     iptables::listen::tcp_stateful { 'ssh':
       trusted_nets => ['0.0.0.0/0'],
       dports       => [22]
     }
+    iptables::listen::tcp_stateful { 'docker registry':
+      trusted_nets => ['0.0.0.0/0'],
+      dports       => [5000]
+    }
 
     include 'simp_docker'
-    Class['iptables'] ~> Class['docker']
     EOS
   }
 
@@ -55,13 +58,11 @@ describe 'docker' do
             ],
             require => File['/tmp/auth/htpasswd']
           }
-          iptables::listen::tcp_stateful { 'docker registry':
-            trusted_nets => ['0.0.0.0/0'],
-            dports       => [5000]
-          }
         EOF
         apply_manifest_on(host, run_manifest)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_failures: true)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_changes: true)
       end
     end
@@ -83,6 +84,7 @@ describe 'docker' do
           }
         EOF
         apply_manifest_on(host, run_manifest)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_failures: true)
         # The docker::registry class is not idempotent
         # https://github.com/puppetlabs/puppetlabs-docker/issues/15
@@ -114,7 +116,9 @@ describe 'docker' do
           EOF
         end
         apply_manifest_on(host, run_manifest)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_failures: true)
+        sleep 20
         apply_manifest_on(host, run_manifest, catch_changes: true)
       end
     end
