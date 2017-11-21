@@ -107,11 +107,20 @@ unit-puppet5-ruby-2.4:
   <<: *spec_tests
   allow_failure: true
 
-acceptance-default:
+acceptance-redhat:
   stage: acceptance
   tags:
     - beaker
   <<: *cache_bundler
   <<: *setup_bundler_env
   script:
-    - bundle exec rake beaker:suites[default]
+    - bundle exec rake beaker:suites[redhat]
+
+acceptance-ce:
+  stage: acceptance
+  tags:
+    - beaker
+  <<: *cache_bundler
+  <<: *setup_bundler_env
+  script:
+    - bundle exec rake beaker:suites[ce]
