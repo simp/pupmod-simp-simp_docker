@@ -53,8 +53,8 @@ class simp_docker (
   if $iptables_docker_chain {
     include 'iptables'
 
-    exec { 'add docker chain back':
-      command     => '/sbin/iptables -t filter -N DOCKER || /usr/bin/true',
+    exec { 'Add docker chain back':
+      command     => '/sbin/iptables -t filter -N DOCKER',
       refreshonly => true,
       subscribe   => Class['iptables']
     }

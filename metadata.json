@@ -15,6 +15,10 @@
   ],
   "dependencies": [
     {
+      "name": "herculesteam/augeasproviders_sysctl",
+      "version_requirement": ">= 2.2.0 < 3.0.0"
+    },
+    {
       "name": "simp/iptables",
       "version_requirement": ">= 6.0.1 < 7.0.0"
     },
@@ -25,6 +29,10 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.13.1 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs/docker",
+      "version_requirement": ">= 1.0.2 < 2.0.0"
     }
   ],
   "operatingsystem_support": [

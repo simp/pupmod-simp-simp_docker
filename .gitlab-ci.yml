@@ -31,7 +31,7 @@ stages:
   - acceptance
   - deploy
 
-puppet-syntax:
+syntax-puppet:
   stage: syntax
   tags:
     - docker
@@ -41,7 +41,7 @@ puppet-syntax:
   <<: *syntax_checks
 
 # Puppet 4
-unit-ruby-2.1.9:
+ruby-2.1.9:
   stage: unit
   tags:
     - docker
@@ -51,7 +51,7 @@ unit-ruby-2.1.9:
   <<: *spec_tests
 
 # Puppet 5
-unit-ruby-2.4.1:
+ruby-2.4.1:
   stage: unit
   tags:
     - docker
@@ -62,7 +62,7 @@ unit-ruby-2.4.1:
 
 # For PE LTS Support
 # See: https://puppet.com/misc/puppet-enterprise-lifecycle
-puppet4.7-syntax:
+puppet-4.7:
   stage: syntax
   tags:
     - docker
@@ -73,7 +73,7 @@ puppet4.7-syntax:
   <<: *setup_bundler_env
   <<: *syntax_checks
 
-unit-puppet4.7-ruby-2.1:
+puppet-4.7-ruby-2.1:
   stage: unit
   tags:
     - docker
@@ -84,7 +84,7 @@ unit-puppet4.7-ruby-2.1:
   <<: *setup_bundler_env
   <<: *spec_tests
 
-puppet5-syntax:
+puppet5:
   stage: syntax
   tags:
     - docker
@@ -95,7 +95,7 @@ puppet5-syntax:
   <<: *setup_bundler_env
   <<: *syntax_checks
 
-unit-puppet5-ruby-2.4:
+puppet5-ruby-2.4:
   stage: unit
   tags:
     - docker
@@ -107,7 +107,7 @@ unit-puppet5-ruby-2.4:
   <<: *spec_tests
   allow_failure: true
 
-acceptance-redhat:
+suite-redhat:
   stage: acceptance
   tags:
     - beaker
@@ -116,11 +116,33 @@ acceptance-redhat:
   script:
     - bundle exec rake beaker:suites[redhat]
 
-acceptance-ce:
+suite-ce:
   stage: acceptance
   tags:
     - beaker
   <<: *cache_bundler
   <<: *setup_bundler_env
+  script:
+    - bundle exec rake beaker:suites[ce]
+
+suite-redhat-fips:
+  stage: acceptance
+  tags:
+    - beaker
+  <<: *cache_bundler
+  <<: *setup_bundler_env
+  variables:
+    BEAKER_fips: 'yes'
+  script:
+    - bundle exec rake beaker:suites[redhat]
+
+suite-ce-fips:
+  stage: acceptance
+  tags:
+    - beaker
+  <<: *cache_bundler
+  <<: *setup_bundler_env
+  variables:
+    BEAKER_fips: 'yes'
   script:
     - bundle exec rake beaker:suites[ce]
