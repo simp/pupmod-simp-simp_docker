@@ -9,7 +9,7 @@
    * [Setup requirements](#setup-requirements)
    * [Beginning with simp_docker](#beginning-with-simp_docker)
 3. [Usage - Configuration options and additional functionality](#usage)
-   * [`docker::run` - Running containers as a systemd service](#docker--run)
+   * [`docker::run` - Running containers as a systemd service](#dockerrun)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
