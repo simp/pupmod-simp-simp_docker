@@ -51,7 +51,7 @@ describe 'simp_docker' do
         context 'simp_docker with the redhat release_type and options' do
           let(:params) {{
             release_type: 'redhat',
-            other_options: {
+            options: {
               dns: ['8.8.8.8'],
               log_level: 'info'
             }
@@ -73,7 +73,7 @@ describe 'simp_docker' do
         context 'simp_docker with the ce release_type and options' do
           let(:params) {{
             release_type: 'ce',
-            other_options: {
+            options: {
               dns: ['8.8.8.8'],
               log_level: 'info'
             }

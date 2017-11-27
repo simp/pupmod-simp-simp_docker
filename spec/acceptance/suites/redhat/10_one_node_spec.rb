@@ -24,8 +24,8 @@ describe 'docker using redhat provided packages' do
         on(host, 'echo "root:password" | chpasswd --crypt-method SHA256')
 
         on(host, 'yum install -y epel-release', run_in_parallel: true)
-        # Set up base modules and hieradata
-        # set_hieradata_on(host,hieradata)
+
+        set_hieradata_on(host, { 'simp_options::firewall' => true })
         apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)

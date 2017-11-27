@@ -1,3 +1,5 @@
-* Mon Jan 1 1970 First Last <email@domain.com> - 0.0.1
-- FIXME: something you did
-- FIXME: something else you did
+* Mon Nov 27 2017 Nick Miller <nick.millwe@onyxpoint.com> - 0.0.1
+- Wrap puppetlabs/docker to:
+  - Provide SIMP defaults
+  - Add ease-of-use for using different distributions of Docker
+- Document how to set up simp/iptables to ignore docker-generated rules
