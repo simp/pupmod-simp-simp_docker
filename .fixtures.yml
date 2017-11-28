@@ -9,7 +9,7 @@ fixtures:
       ref: 2.2.0
     docker:
       repo: https://github.com/simp/puppetlabs-docker
-      ref: 1.0.2
+      branch: master # I have made changed to the upstream module that have not been released yet
     iptables:
       repo: https://github.com/trevor-vaughan/pupmod-simp-iptables
       branch: SIMP-3951

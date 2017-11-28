@@ -79,8 +79,12 @@ describe 'docker' do
       it 'use the module to use the local registry' do
         run_manifest = manifest + <<-EOF
           docker::registry { '#{registry}:5000':
-            username => 'testuser',
-            password => 'testpassword'
+            username  => 'testuser',
+            password  => 'testpassword',
+            # simplib::passgen can be used to generate this hash
+            # It must be generated and passed because the upstream module doesn't do it
+            # in a way that works on FIPS
+            pass_hash => '$6$root$hBfC7VdTd3zj5MlJ6YkwXuhA01VERIVz3b0Ar.EOyMgbXqgsIi9AELXnRvfyBFSYn4aAg9Y56B4rmwfMMrJHr/'
           }
         EOF
         apply_manifest_on(host, run_manifest)

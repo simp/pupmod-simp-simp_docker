@@ -61,7 +61,6 @@ puppet-5:
   <<: *cache_bundler
   <<: *setup_bundler_env
   <<: *static_tests
-  allow_failure: true
 
 
 redhat:
@@ -117,6 +116,7 @@ redhat-latest:
   <<: *cache_bundler
   <<: *setup_bundler_env
   variables:
-    PUPPET_VERSION: '5.0'
+    PUPPET_VERSION: '5.0.0'
   script:
     - bundle exec rake beaker:suites[redhat]
+  allow_failure: true
