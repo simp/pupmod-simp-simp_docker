@@ -23,8 +23,8 @@ The goal of this project is to not get in the way of anyone experienced with
 Docker, and to not set up Docker in a way that would not make sense to anyone
 using Docker on other platforms.
 
-It currently supports installing Docker through the RedHat provided `docker`
-package (reccomended) or the Docker provided `docker-ce` package.
+It currently supports installing Docker through the RedHat-provided `docker`
+package (recommended) or the Docker-provided `docker-ce` package.
 
 The meat of this module is to provide SIMP-specific defaults for the very good
 upstream [puppetlabs/docker](https://github.com/puppetlabs/puppetlabs-docker)
@@ -62,13 +62,17 @@ This module will:
   * Manage the `docker` service
 
 The `puppetlabs/docker` module can:
-  * [Manage images](https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#images) available on the local machine
-  * Run containers [as systemd services](https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#containers)
-  * [Manage registries](https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#private-registries) available on the local machine
-  * A [bunch of other cool stuff](https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#usage)
+  * [Manage images][1] available on the local machine
+  * Run containers [as systemd services][2]
+  * [Manage registries][3] available on the local machine
+  * A [bunch of other cool stuff][4]
 
-**This module does not support EL 6, only EL 7**
+[1]: https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#images
+[2]: https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#containers
+[3]: https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#private-registries
+[4]: https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#usage
 
+**NOTE:** This module only supports EL7.  **It does not support EL6.**
 
 ### Setup Requirements
 
@@ -85,8 +89,10 @@ iptables::ignore:
 This snippet tells the simp/iptables module to ignore rules written to iptables
 by the Docker daemon. Otherwise, the iptables module will remove them.
 
-See [the acceptance test for this project](spec/acceptance/suites/redhat/20_multi_node_spec.rb)
- for an example of how to set up this module for use in a fully SIMP environment.
+See [the acceptance tests for this project][5] for an example of how to set up
+this module for use in a full SIMP environment.
+
+[5]: spec/acceptance/suites/redhat/20_multi_node_spec.rb
 
 
 ### Beginning with simp_docker
@@ -94,13 +100,13 @@ See [the acceptance test for this project](spec/acceptance/suites/redhat/20_mult
 To get started with `simp_docker`, include the class and choose the version of
 Docker that should be used.
 
-For RedHat provided Docker (`docker` from `CentOS-Extras`):
+For RedHat-provided Docker (`docker` from `CentOS-Extras`):
 
 ```puppet
 include 'simp_docker'
 ```
 
-For Docker Community Edition or Docker provided docker (`docker-ce`):
+For Docker Community Edition or Docker-provided docker (`docker-ce`):
 
 ```puppet
 class { 'simp_docker':
@@ -111,12 +117,13 @@ class { 'simp_docker':
 
 ## Usage
 
-The default parameters for each `release_type` are kept in [module data](data/common.yaml).
-If these are wrong or need to be updated, please file an [issue](https://simp-project.atlassian.net).
+The default parameters for each `release_type` are kept in [module
+data](data/common.yaml). If these are wrong or need to be updated, please file
+an [issue](https://simp-project.atlassian.net).
 
-If more advanced settings are required, all options set in the `options`
-hash will be passed to the `puppetlabs/docker` docker class. Here is an example
-setting up Docker using a tcp socket:
+If more advanced settings are required, all options set in the `options` hash
+will be passed to the `puppetlabs/docker` docker class. Here is an example
+setting up Docker using a TCP socket:
 
 ```puppet
 class { 'simp_docker':
@@ -156,13 +163,13 @@ docker run --net bridge -m 0b -p 80:80 --name stock_nginx nginx
 
 Please refer to the inline documentation within each source file, or to the
 module's generated YARD documentation for reference material. The upstream
-[`puppetlabs/docker` documentation](https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2)
-is also a great resource.
+[`puppetlabs/docker` documentation][6] is also a great resource.
 
+[6]: https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2
 
 ## Limitations
 
-**This module does not support EL 6, only EL 7**
+This module only supports EL7.  **It does not support EL6**.
 
 SIMP Puppet modules are generally intended for use on Red Hat Enterprise Linux
 and compatible distributions, such as CentOS. Please see the
