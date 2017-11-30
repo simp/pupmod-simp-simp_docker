@@ -11,8 +11,8 @@ fixtures:
       repo: https://github.com/simp/puppetlabs-docker
       branch: master # I have made changed to the upstream module that have not been released yet
     iptables:
-      repo: https://github.com/trevor-vaughan/pupmod-simp-iptables
-      branch: SIMP-3951
+      repo: https://github.com/simp/pupmod-simp-iptables
+      ref: 6.0.3
     simplib:
       repo: https://github.com/simp/pupmod-simp-simplib
       ref: 3.8.0
