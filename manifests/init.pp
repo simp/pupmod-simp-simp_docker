@@ -40,6 +40,21 @@ class simp_docker (
   Boolean $iptables_docker_chain = simplib::lookup('simp_options::firewall', { 'default_value' => false }),
 ) {
 
+  # Need to account for changing the docker_group in one of the options hashes
+  if $options and $options['docker_group'] and !$options['socket_group'] {
+    $_socket_group_option = {
+      'socket_group' => $options['docker_group']
+    }
+  }
+  elsif $default_options[$release_type] and $default_options[$release_type]['docker_group']  and !$default_options[$release_type]['socket_group'] {
+    $_socket_group_option = {
+      'socket_group' => $default_options[$release_type]['docker_group']
+    }
+  }
+  else {
+    $_socket_group_option = {}
+  }
+
   $_docker_bridge_up = ($bridge_dev in $facts['networking']['interfaces'].keys)
   if $manage_sysctl and $_docker_bridge_up {
     sysctl {
@@ -61,6 +76,6 @@ class simp_docker (
   }
 
   class { 'docker':
-    * => $default_options[$release_type] + $options
+    * => $default_options[$release_type] + $options + $_socket_group_option
   }
 }

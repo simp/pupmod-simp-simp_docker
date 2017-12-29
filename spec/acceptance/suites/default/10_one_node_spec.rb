@@ -28,7 +28,15 @@ describe 'docker using redhat provided packages' do
         set_hieradata_on(host, { 'simp_options::firewall' => true })
         apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
+      end
+
+      it 'should be idempotent' do
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
+      end
+
+      it 'should set the group of the docker socket to dockerroot' do
+        group = on(host, 'stat -c %G /var/run/docker.sock').stdout.strip
+        expect(group).to eq('dockerroot')
       end
 
       it 'should run hello-world via cli' do
