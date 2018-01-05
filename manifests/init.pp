@@ -76,6 +76,6 @@ class simp_docker (
   }
 
   class { 'docker':
-    * => $default_options[$release_type] + $options + $_socket_group_option
+    * => $default_options[$release_type] + $_socket_group_option  + $options
   }
 }
