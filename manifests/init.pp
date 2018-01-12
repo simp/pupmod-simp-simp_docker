@@ -41,6 +41,8 @@ class simp_docker (
 ) {
 
   # Need to account for changing the docker_group in one of the options hashes
+  # This functionality has been implemented in the upstream module and this code can
+  # be removed when it's released. See SIMP-4261.
   if $options and $options['docker_group'] and !$options['socket_group'] {
     $_socket_group_option = {
       'socket_group' => $options['docker_group']
