@@ -26,6 +26,7 @@ describe 'simp_docker' do
             docker_ce_package_name: 'docker',
             log_driver: 'journald',
             docker_group: 'dockerroot',
+            socket_group: 'dockerroot'
           ) }
           it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-iptables') }
           it { is_expected.not_to contain_sysctl('net.bridge.bridge-nf-call-ip6tables') }
@@ -53,7 +54,8 @@ describe 'simp_docker' do
             release_type: 'redhat',
             options: {
               dns: ['8.8.8.8'],
-              log_level: 'info'
+              log_level: 'info',
+              docker_group: 'not_dockerroot'
             }
           }}
           it { is_expected.to compile.with_all_deps }
@@ -64,7 +66,8 @@ describe 'simp_docker' do
             manage_epel: false,
             docker_ce_package_name: 'docker',
             log_driver: 'journald',
-            docker_group: 'dockerroot',
+            docker_group: 'not_dockerroot',
+            socket_group: 'not_dockerroot',
             dns: ['8.8.8.8'],
             log_level: 'info'
           ) }
