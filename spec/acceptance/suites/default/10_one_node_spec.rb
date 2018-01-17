@@ -20,8 +20,8 @@ describe 'docker using redhat provided packages' do
   context 'basic docker usage' do
     hosts.each do |host|
       it 'should apply with no errors' do
-        #on(host, "sed -i 's/enforce_for_root//g' /etc/pam.d/*")
-        #on(host, 'echo "root:password" | chpasswd --crypt-method SHA256')
+        on(host, "sed -i 's/enforce_for_root//g' /etc/pam.d/*")
+        on(host, 'echo "root:password" | chpasswd --crypt-method SHA256')
 
         on(host, 'yum install -y epel-release', run_in_parallel: true)
 
