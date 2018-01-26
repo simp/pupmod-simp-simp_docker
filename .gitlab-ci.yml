@@ -20,7 +20,7 @@
     - bundle exec rake check:dot_underscore
     - bundle exec rake check:test_file
     - bundle exec rake pkg:check_version
-    - bundle exec rake compare_latest_tag
+    - bundle exec rake pkg:compare_latest_tag
     - bundle exec rake spec
 
 stages:
@@ -63,7 +63,7 @@ puppet-5:
   <<: *static_tests
 
 
-redhat:
+default:
   stage: acceptance
   tags:
     - beaker
@@ -72,7 +72,7 @@ redhat:
   variables:
     PUPPET_VERSION: '4.10'
   script:
-    - bundle exec rake beaker:suites[redhat]
+    - bundle exec rake beaker:suites[default]
 
 ce:
   stage: acceptance
@@ -85,7 +85,7 @@ ce:
   script:
     - bundle exec rake beaker:suites[ce]
 
-redhat-fips:
+default-fips:
   stage: acceptance
   tags:
     - beaker
@@ -95,7 +95,7 @@ redhat-fips:
     BEAKER_fips: 'yes'
     PUPPET_VERSION: '4.10'
   script:
-    - bundle exec rake beaker:suites[redhat]
+    - bundle exec rake beaker:suites[default]
 
 ce-fips:
   stage: acceptance
@@ -109,7 +109,7 @@ ce-fips:
   script:
     - bundle exec rake beaker:suites[ce]
 
-redhat-latest:
+default-latest:
   stage: acceptance
   tags:
     - beaker
@@ -118,5 +118,5 @@ redhat-latest:
   variables:
     PUPPET_VERSION: '5.0.0'
   script:
-    - bundle exec rake beaker:suites[redhat]
+    - bundle exec rake beaker:suites[default]
   allow_failure: true
