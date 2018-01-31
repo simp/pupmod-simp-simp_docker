@@ -22,7 +22,6 @@ describe 'simp_docker' do
             use_upstream_package_source: false,
             service_overrides_template: false,
             selinux_enabled: "true",
-            manage_epel: false,
             docker_ce_package_name: 'docker',
             log_driver: 'journald',
             docker_group: 'dockerroot',
@@ -63,7 +62,6 @@ describe 'simp_docker' do
             use_upstream_package_source: false,
             service_overrides_template: false,
             selinux_enabled: "true",
-            manage_epel: false,
             docker_ce_package_name: 'docker',
             log_driver: 'journald',
             docker_group: 'not_dockerroot',
@@ -84,7 +82,6 @@ describe 'simp_docker' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_class('docker').with(
             # selinux_enabled: "true",
-            manage_epel: false,
             docker_ce_package_name: 'docker-ce',
             log_driver: 'journald',
             dns: ['8.8.8.8'],

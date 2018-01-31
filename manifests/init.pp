@@ -69,7 +69,7 @@ class simp_docker (
   }
 
   if $iptables_docker_chain {
-    include 'iptables'
+    include '::iptables'
 
     exec { 'Add docker chain back':
       command     => '/sbin/iptables -t filter -N DOCKER',
@@ -78,7 +78,7 @@ class simp_docker (
     }
   }
 
-  class { 'docker':
-    * => $default_options[$release_type] + $_socket_group_option  + $options
+  class { '::docker':
+    * => $default_options[$release_type] + $_socket_group_option + $options
   }
 }

@@ -9,7 +9,6 @@
 
 .setup_bundler_env: &setup_bundler_env
   before_script:
-    - gem install bundler
     - rm -f Gemfile.lock
     - bundle install --no-binstubs --path .vendor "${FLAGS[@]}"
 
@@ -22,6 +21,7 @@
     - bundle exec rake pkg:check_version
     - bundle exec rake pkg:compare_latest_tag
     - bundle exec rake spec
+    - bundle exec puppet module build
 
 stages:
   - unit
