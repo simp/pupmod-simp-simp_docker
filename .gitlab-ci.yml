@@ -9,7 +9,8 @@
 
 .setup_bundler_env: &setup_bundler_env
   before_script:
-    - rm -f Gemfile.lock
+    - bundle || gem install bundler
+    - rm -rf Gemfile.lock pkg/
     - bundle install --no-binstubs --path .vendor "${FLAGS[@]}"
 
 .static_tests: &static_tests
