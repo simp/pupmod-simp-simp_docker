@@ -9,8 +9,7 @@ fixtures:
       ref: 2.2.0
     docker:
       repo: https://github.com/simp/puppetlabs-docker
-      # requires fixes to the upstream module that have not been released yet
-      ref: 587748b6a5b140801f39cb883a1d92a4d40c662f
+      ref: 1.0.5
     iptables:
       repo: https://github.com/simp/pupmod-simp-iptables
       ref: 6.0.3

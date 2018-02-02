@@ -55,7 +55,7 @@ describe 'docker' do
               'REGISTRY_HTTP_TLS_CERTIFICATE=/etc/pki-testing/private/#{fqdn}.pem',
               'REGISTRY_HTTP_TLS_KEY=/etc/pki-testing/private/#{fqdn}.pem',
               'REGISTRY_AUTH=htpasswd',
-              '"REGISTRY_AUTH_HTPASSWD_REALM=Beaker Realm"',
+              'REGISTRY_AUTH_HTPASSWD_REALM=Beaker Realm',
               'REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd'
             ],
             require => File['/tmp/auth/htpasswd']

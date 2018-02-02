@@ -1,4 +1,8 @@
-* Fri Dec 29 2017 Trevor Vaughan <tvaughan@onyxpoint.com> - 0.1.1
+* Wed Jan 31 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.0
+- Update to puppetlabs/docker 1.0.5
+  - Remove deprecated `manage_epel` parameter
+
+* Fri Dec 29 2017 Trevor Vaughan <tvaughan@onyxpoint.com> - 0.1.0
 - Ensure that the docker_group and socket_group options are the same by default
   for the 'redhat' release type
 

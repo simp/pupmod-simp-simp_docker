@@ -10,15 +10,12 @@ simp_docker::default_options:
     use_upstream_package_source: false
     service_overrides_template: false
     selinux_enabled: "%{facts.selinux}"
-    manage_epel: false
     docker_ce_package_name: docker
     log_driver: journald
     docker_group: dockerroot
   ce:
     docker_ce_package_name: docker-ce
     log_driver: journald
-    manage_epel: false
   ee:
     docker_ee: true
     log_driver: journald
-    manage_epel: false
