@@ -12,7 +12,7 @@ fixtures:
       ref: 1.0.5
     iptables:
       repo: https://github.com/simp/pupmod-simp-iptables
-      ref: 6.0.3
+      ref: 6.1.1
     simplib:
       repo: https://github.com/simp/pupmod-simp-simplib
       ref: 3.8.0

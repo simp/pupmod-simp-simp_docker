@@ -24,8 +24,9 @@
 #
 #   This parameter will overwrite and default setting in $default_options.
 #
-# @param iptables_docker_chain If using the SIMP iptables module, add the
-#   `DOCKER` chain back when the iptables rules have been changed by Puppet.
+# @param iptables_docker_chain Add the `DOCKER` chain back when the iptables
+#   rules have been changed by simp/iptables. When using a version of
+#   simp/iptables module older than 6.1.1, this will need to be set to true.
 #
 # @author https://github.com/simp/pupmod-simp-simp_docker/graphs/contributors
 #
@@ -37,7 +38,7 @@ class simp_docker (
   Hash $default_options,
   Optional[Hash] $options,
 
-  Boolean $iptables_docker_chain = simplib::lookup('simp_options::firewall', { 'default_value' => false }),
+  Boolean $iptables_docker_chain,
 ) {
 
   # TODO: remove this block after SIMP-4261 is satisfied
