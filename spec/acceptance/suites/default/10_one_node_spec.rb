@@ -30,6 +30,7 @@ describe 'docker using redhat provided packages' do
       end
 
       it 'should be idempotent' do
+        sleep 20
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end
 

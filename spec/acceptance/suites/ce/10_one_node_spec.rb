@@ -29,6 +29,10 @@ describe 'docker using redhat provided packages' do
 
         apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
+      end
+
+      it 'should be idempotent' do
+        sleep 20
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end
 
