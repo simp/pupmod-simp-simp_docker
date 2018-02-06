@@ -37,8 +37,6 @@ class simp_docker (
 
   Hash $default_options,
   Optional[Hash] $options,
-
-  Boolean $iptables_docker_chain,
 ) {
 
   # TODO: remove this block after SIMP-4261 is satisfied
@@ -66,16 +64,6 @@ class simp_docker (
         before => Class['docker'];
       'net.bridge.bridge-nf-call-iptables':  value => 1 ;
       'net.bridge.bridge-nf-call-ip6tables': value => 1 ;
-    }
-  }
-
-  if $iptables_docker_chain {
-    include 'iptables'
-
-    exec { 'Add docker chain back':
-      command     => '/sbin/iptables -t filter -N DOCKER',
-      refreshonly => true,
-      subscribe   => Class['iptables']
     }
   }
 

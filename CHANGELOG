@@ -1,7 +1,7 @@
 * Wed Jan 31 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.0
 - Update to puppetlabs/docker 1.0.5
   - Remove deprecated `manage_epel` parameter
-- Unset $iptables_docker_chain by default
+- Removed $iptables_docker_chain by default
   - The simp/iptables module has been updated so that this is not needed
 
 * Fri Dec 29 2017 Trevor Vaughan <tvaughan@onyxpoint.com> - 0.1.0

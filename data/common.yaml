@@ -3,7 +3,6 @@
 simp_docker::release_type: redhat
 simp_docker::manage_sysctl: true
 simp_docker::bridge_dev: docker0
-simp_docker::iptables_docker_chain: false
 simp_docker::options: {}
 
 simp_docker::default_options:
