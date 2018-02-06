@@ -24,10 +24,6 @@
 #
 #   This parameter will overwrite and default setting in $default_options.
 #
-# @param iptables_docker_chain Add the `DOCKER` chain back when the iptables
-#   rules have been changed by simp/iptables. When using a version of
-#   simp/iptables module older than 6.1.1, this will need to be set to true.
-#
 # @author https://github.com/simp/pupmod-simp-simp_docker/graphs/contributors
 #
 class simp_docker (
