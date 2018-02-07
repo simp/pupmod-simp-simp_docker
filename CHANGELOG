@@ -1,12 +1,14 @@
 * Wed Jan 31 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.0
 - Update to puppetlabs/docker 1.0.5
   - Remove deprecated `manage_epel` parameter
+- Removed $iptables_docker_chain by default
+  - The simp/iptables module has been updated so that this is not needed
 
 * Fri Dec 29 2017 Trevor Vaughan <tvaughan@onyxpoint.com> - 0.1.0
 - Ensure that the docker_group and socket_group options are the same by default
   for the 'redhat' release type
 
-* Mon Nov 27 2017 Nick Miller <nick.miller@onyxpoint.com> - 0.0.1
+* Mon Nov 27 2017 Nick Miller <nick.miller@onyxpoint.com> - 0.1.0
 - Wrap puppetlabs/docker to:
   - Provide SIMP defaults
   - Add ease-of-use for using different distributions of Docker

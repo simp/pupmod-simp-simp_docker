@@ -25,12 +25,12 @@ describe 'docker using redhat provided packages' do
 
         on(host, 'yum install -y epel-release', run_in_parallel: true)
 
-        set_hieradata_on(host, { 'simp_options::firewall' => true })
         apply_manifest_on(host, manifest, run_in_parallel: true)
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
       end
 
       it 'should be idempotent' do
+        sleep 20
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end
 

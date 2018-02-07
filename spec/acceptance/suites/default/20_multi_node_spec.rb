@@ -29,6 +29,8 @@ describe 'docker' do
     hosts.each do |host|
       it 'should apply with no errors' do
         apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
+        apply_manifest_on(host, manifest, catch_failures: true, run_in_parallel: true)
+        sleep 20
         apply_manifest_on(host, manifest, catch_changes: true, run_in_parallel: true)
       end
 
@@ -52,8 +54,8 @@ describe 'docker' do
         apply_manifest_on(host, run_manifest, catch_failures: true, run_in_parallel: true)
         sleep 20
         apply_manifest_on(host, run_manifest, catch_changes: true, run_in_parallel: true)
-        result = retry_on(host, 'curl localhost:80', verbose: true).stdout
-        expect(result).to match(/Hello from Docker on SIMP/)
+        result = retry_on(host, 'curl localhost:80', verbose: true)
+        expect(result.stdout).to match(/Hello from Docker on SIMP/)
       end
     end
   end
