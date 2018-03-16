@@ -9,7 +9,6 @@ simp_docker::default_options:
   redhat:
     use_upstream_package_source: false
     service_overrides_template: false
-    selinux_enabled: "%{facts.selinux}"
     docker_ce_package_name: docker
     log_driver: journald
     docker_group: dockerroot
