@@ -54,6 +54,6 @@ Data type: `Optional[Hash]`
 Other options to be sent to the `docker` class.
 @see https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#usage
 
-This parameter will overwrite and default setting in $default_options.
+* This parameter will overwrite and default setting in $default_options.
 
 

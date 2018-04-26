@@ -34,5 +34,16 @@ unless github.api.organization_member?('simp', github.pr_author)
   message(':tada: Thanks for your contribution!')
 end
 
+string_reference = `puppet strings generate --format markdown`
+unless string_reference.include? '100.00% documented'
+  fail('Parts of the code are not documented! See the output of `puppet strings generate --format markdown`')
+elsif string_reference.include? 'warning'
+  warn('There are some warnings from puppet strings! See the output of `puppet strings generate --format markdown`')
+end
+
+if system('git diff --exit-code REFERENCE.md')
+  fail('Run `puppet strings generate --format markdown` and update the REFERENCE.md')
+end
+
 # We can totally do linting in here, like yaml validating and rpm stuff.
 
