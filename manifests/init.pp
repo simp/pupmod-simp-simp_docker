@@ -22,9 +22,7 @@
 # @param options Other options to be sent to the `docker` class.
 #   @see https://github.com/puppetlabs/puppetlabs-docker/tree/1.0.2#usage
 #
-#   This parameter will overwrite and default setting in $default_options.
-#
-# @author https://github.com/simp/pupmod-simp-simp_docker/graphs/contributors
+#   * This parameter will overwrite and default setting in $default_options.
 #
 class simp_docker (
   Simp_docker::Type $release_type,
