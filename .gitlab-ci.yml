@@ -10,7 +10,8 @@
 .setup_bundler_env: &setup_bundler_env
   before_script:
     - bundle || gem install bundler
-    - rm -rf Gemfile.lock pkg/
+    - rm -rf pkg/
+    - bundle update --no-binstubs --path .vendor "${FLAGS[@]}" puppet
     - bundle install --no-binstubs --path .vendor "${FLAGS[@]}"
 
 .static_tests: &static_tests
