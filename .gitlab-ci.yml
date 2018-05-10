@@ -45,7 +45,7 @@ puppet-gemfile:
   image: ruby:2.1.9
   <<: *cache_bundler
   <<: *setup_bundler_env
-  <<: *static_tests
+  <<: *validation_checks
 
 # For PE LTS Support
 # See: https://puppet.com/misc/puppet-enterprise-lifecycle
@@ -58,7 +58,7 @@ puppet-4.7:
     PUPPET_VERSION: '4.7'
   <<: *cache_bundler
   <<: *setup_bundler_env
-  <<: *static_tests
+  <<: *validation_checks
 
 puppet-5:
   stage: unit
@@ -69,7 +69,7 @@ puppet-5:
     PUPPET_VERSION: '5.0'
   <<: *cache_bundler
   <<: *setup_bundler_env
-  <<: *static_tests
+  <<: *validation_checks
 
 
 default:
