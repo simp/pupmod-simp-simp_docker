@@ -13,6 +13,7 @@ describe 'simp_docker' do
               em1: nil
             }
           }
+          facts[:selinux] = true
           facts
         end
 
@@ -21,7 +22,7 @@ describe 'simp_docker' do
           it { is_expected.to contain_class('docker').with(
             use_upstream_package_source: false,
             service_overrides_template: false,
-            selinux_enabled: "true",
+            selinux_enabled: true,
             docker_ce_package_name: 'docker',
             log_driver: 'journald',
             docker_group: 'dockerroot',

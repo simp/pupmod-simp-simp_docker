@@ -1,3 +1,9 @@
+* Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.1
+- Update to puppetlabs/docker 1.1.0
+  - $selinux_enabled changed from taking string to only taking booleans, 
+    breaking the hiera interpolation trick that was used to set that parameter
+    to the selinux status of the system.
+
 * Wed Jan 31 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.0
 - Update to puppetlabs/docker 1.0.5
   - Remove deprecated `manage_epel` parameter

@@ -53,6 +53,21 @@ class simp_docker (
     $_socket_group_option = {}
   }
 
+  # The 'selinux_enabled' parameter should be set to the state of the system,
+  # but only if using the 'redhat' release_type
+  case $release_type {
+    'redhat': {
+      $_default_options = $default_options[$release_type].merge(
+        {
+          'selinux_enabled' => $facts['selinux']
+        }
+      )
+    }
+    default: {
+      $_default_options = $default_options[$release_type]
+    }
+  }
+
   $_docker_bridge_up = ($bridge_dev in $facts['networking']['interfaces'].keys)
   if $manage_sysctl and $_docker_bridge_up {
     sysctl {
@@ -64,6 +79,6 @@ class simp_docker (
   }
 
   class { 'docker':
-    * => $default_options[$release_type] + $_socket_group_option + $options
+    * => $_default_options + $_socket_group_option + $options
   }
 }
