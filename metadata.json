@@ -1,6 +1,6 @@
 {
   "name": "simp-simp_docker",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "SIMP Team",
   "summary": "A SIMP helper module for puppetlabs/docker",
   "license": "Apache-2.0",
