@@ -1,9 +1,13 @@
 * Mon Sep 10 2018 Liz Nemsick <lnemsick.simp@gmail.com> - 0.2.0-0
 - Update Hiera 4 to Hiera 5.
 
+* Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.2
+- Update to Puppet 5 and OEL
+- Update to use puppetlabs/docker 2.0.0
+
 * Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.1
 - Update to puppetlabs/docker 1.1.0
-  - $selinux_enabled changed from taking string to only taking booleans, 
+  - $selinux_enabled changed from taking string to only taking booleans,
     breaking the hiera interpolation trick that was used to set that parameter
     to the selinux status of the system.
 
