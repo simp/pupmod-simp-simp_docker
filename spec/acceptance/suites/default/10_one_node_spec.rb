@@ -39,6 +39,11 @@ describe 'docker using redhat provided packages' do
         expect(group).to eq('dockerroot')
       end
 
+      it 'should make a group called docker for now' do
+        # https://github.com/puppetlabs/puppetlabs-docker/issues/321
+        on(host,'groupadd docker')
+      end
+
       it 'should run hello-world via cli' do
         on(host, 'docker run hello-world', run_in_parallel: true)
       end

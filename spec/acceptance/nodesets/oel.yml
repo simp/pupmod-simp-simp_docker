@@ -14,21 +14,21 @@ HOSTS:
       - el7
       - docker
     platform:   el-7-x86_64
-    box:        centos/7
+    box:        elastic/oel-7-x86_64
     hypervisor: <%= hypervisor %>
   server02:
     roles:
       - el7
       - docker
     platform:   el-7-x86_64
-    box:        centos/7
+    box:        elastic/oel-7-x86_64
     hypervisor: <%= hypervisor %>
   server03:
     roles:
       - el7
       - docker
     platform:   el-7-x86_64
-    box:        centos/7
+    box:        elastic/oel-7-x86_64
     hypervisor: <%= hypervisor %>
 
 CONFIG:
