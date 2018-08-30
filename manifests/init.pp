@@ -57,11 +57,9 @@ class simp_docker (
   # but only if using the 'redhat' release_type
   case $release_type {
     'redhat': {
-      $_default_options = $default_options[$release_type].merge(
-        {
-          'selinux_enabled' => $facts['selinux']
-        }
-      )
+      $_default_options = $default_options[$release_type] + {
+        'selinux_enabled' => $facts['selinux']
+      }
     }
     default: {
       $_default_options = $default_options[$release_type]
