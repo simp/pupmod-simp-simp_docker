@@ -45,8 +45,8 @@ describe 'docker' do
             image   => 'registry',
             ports   => ['5000:5000'],
             volumes => [
-              '/etc/pki/simp-testing/pki/:/etc/pki-testing',
-              '/tmp/auth:/auth'
+              '/etc/pki/simp-testing/pki/:/etc/pki-testing:Z',
+              '/tmp/auth:/auth:Z'
             ],
             env     => [
               'REGISTRY_HTTP_ADDR=0.0.0.0:5000',
