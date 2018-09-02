@@ -1,7 +1,10 @@
 * Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.2
 - Update to use Hiera 5
-- Update to Puppet 5 and OEL
-- Update to use puppetlabs/docker 2.0.0
+- Support puppetlabs/docker 2.0.0
+- Support Puppet 5 and OEL
+- Remove support for Puppet less than 4.10
+- Support stdlib up to 6
+- Fix default acceptance test
 
 * Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.1
 - Update to puppetlabs/docker 1.1.0
