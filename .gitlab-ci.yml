@@ -87,6 +87,17 @@ pup5_3-validation:
   <<: *setup_bundler_env
   <<: *validation_checks
 
+pup4_10-validation:
+  stage: validation
+  tags:
+    - docker
+  image: ruby:2.1
+  variables:
+    PUPPET_VERSION: '~> 4.10.0'
+  <<: *cache_bundler
+  <<: *setup_bundler_env
+  <<: *spec_tests
+
 pup5_3-unit:
   stage: unit
   tags:
