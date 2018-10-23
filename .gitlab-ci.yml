@@ -86,7 +86,6 @@ pup4_10-unit:
   <<: *setup_bundler_env
   <<: *spec_tests
 
-
 # Puppet 5.3 for PE 2017.3 support (EOL: 2018-07)
 # See: https://puppet.com/misc/puppet-enterprise-lifecycle
 # --------------------------------------

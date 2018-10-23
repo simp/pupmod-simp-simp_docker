@@ -1,5 +1,7 @@
+* Mon Sep 10 2018 Liz Nemsick <lnemsick.simp@gmail.com> - 0.2.0
+- Update Hiera 4 to Hiera 5.
+
 * Wed May 09 2018 Nick Miller <nick.miller@onyxpoint.com> - 0.1.2
-- Update to use Hiera 5
 - Support puppetlabs/docker 2.0.0
 - Support Puppet 5 and OEL
 - Remove support for Puppet less than 4.10
