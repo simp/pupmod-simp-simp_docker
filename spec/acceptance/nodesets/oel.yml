@@ -13,29 +13,29 @@ HOSTS:
       - registry
       - el7
       - docker
-    platform:   el-7-x86_64
-    box:        elastic/oel-7-x86_64
+    platform: el-7-x86_64
+    box: onyxpoint/oel-7-x86_64
     hypervisor: <%= hypervisor %>
   server02:
     roles:
       - el7
       - docker
-    platform:   el-7-x86_64
-    box:        elastic/oel-7-x86_64
+    platform: el-7-x86_64
+    box: onyxpoint/oel-7-x86_64
     hypervisor: <%= hypervisor %>
   server03:
     roles:
       - el7
       - docker
-    platform:   el-7-x86_64
-    box:        elastic/oel-7-x86_64
+    platform: el-7-x86_64
+    box: onyxpoint/oel-7-x86_64
     hypervisor: <%= hypervisor %>
 
 CONFIG:
   log_level: verbose
-  type:      aio
+  type: aio
   vagrant_memsize: 512
   synced_folder: disabled
-<% if ENV['BEAKER_PUPPET_ENVIRONMENT'] -%>
-  puppet_environment: <%= ENV['BEAKER_PUPPET_ENVIRONMENT'] %>
+<% if ENV['BEAKER_PUPPET_COLLECTION'] -%>
+  puppet_collection: <%= ENV['BEAKER_PUPPET_COLLECTION'] %>
 <% end -%>
