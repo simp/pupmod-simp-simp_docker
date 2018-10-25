@@ -1,4 +1,13 @@
 ---
+lookup_options:
+  simp_docker::default_options:
+    merge:
+      strategy: deep
+      knockout_prefix: --
+  simp_docker::options:
+    merge:
+      strategy: deep
+      knockout_prefix: --
 
 simp_docker::release_type: redhat
 simp_docker::manage_sysctl: true

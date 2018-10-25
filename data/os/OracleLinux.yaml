@@ -1,0 +1,5 @@
+---
+simp_docker::default_options:
+  redhat:
+    docker_ce_package_name: docker-engine
+    manage_package: false
