@@ -1,5 +1,8 @@
-[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Build Status](https://travis-ci.org/simp/pupmod-simp-simp_docker.svg)](https://travis-ci.org/simp/pupmod-simp-simp_docker) [![pipeline status](https://gitlab.com/simp/pupmod-simp-simp_docker/badges/master/pipeline.svg)](https://gitlab.com/simp/pupmod-simp-simp_docker/commits/master)
-
+[![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/73/badge)](https://bestpractices.coreinfrastructure.org/projects/73)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/simp/simp_docker.svg)](https://forge.puppetlabs.com/simp/simp_docker)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/simp/simp_docker.svg)](https://forge.puppetlabs.com/simp/simp_docker)
+[![Build Status](https://travis-ci.org/simp/pupmod-simp-simp_docker.svg)](https://travis-ci.org/simp/pupmod-simp-simp_docker)
 
 #### Table of Contents
 
@@ -33,9 +36,8 @@ module.
 
 ### This is a SIMP module
 
-This module is a component of the [System Integrity Management
-Platform](https://github.com/NationalSecurityAgency/SIMP), a
-compliance-management framework built on Puppet.
+This module is a component of the [System Integrity Management Platform](https://simp-project.com),
+a compliance-management framework built on Puppet.
 
 If you find any issues, they may be submitted to our [bug
 tracker](https://simp-project.atlassian.net/).

@@ -214,6 +214,7 @@ pup4.10-fips:
   <<: *only_with_SIMP_FULL_MATRIX
   script:
     - 'BEAKER_fips=yes bundle exec rake beaker:suites'
+
 pup5.5.7:
   <<: *pup_5_5_7
   <<: *acceptance_base
