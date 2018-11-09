@@ -30,7 +30,6 @@ class simp_docker (
   Simp_docker::Type $release_type,
   Boolean $manage_sysctl,
   String $bridge_dev,
-
   Hash $default_options,
   Optional[Hash] $options,
 ) {
@@ -73,12 +72,21 @@ class simp_docker (
     sysctl {
       default:
         before => Class['docker'];
-      'net.bridge.bridge-nf-call-iptables':  value => 1 ;
-      'net.bridge.bridge-nf-call-ip6tables': value => 1 ;
+      'net.bridge.bridge-nf-call-iptables':  value => 1;
+      'net.bridge.bridge-nf-call-ip6tables': value => 1;
     }
   }
 
   class { 'docker':
     * => $_default_options + $_socket_group_option + $options
+  }
+
+  if $facts['osfamily'] == 'RedHat' {
+    exec { 'hack around broken puppetlabs/docker':
+      command => 'groupadd -o -g `getent group dockerroot | cut -d: -f3` docker',
+      onlyif  => 'test `getent group dockerroot` && test ! `getent group docker`',
+      path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+      require => Class['docker::install']
+    }
   }
 }
