@@ -45,15 +45,15 @@ describe 'docker' do
             image   => 'registry',
             ports   => ['5000:5000'],
             volumes => [
-              '/etc/pki/simp-testing/pki/:/etc/pki-testing',
-              '/tmp/auth:/auth'
+              '/etc/pki/simp-testing/pki/:/etc/pki-testing:Z',
+              '/tmp/auth:/auth:Z'
             ],
             env     => [
               'REGISTRY_HTTP_ADDR=0.0.0.0:5000',
               'REGISTRY_HTTP_TLS_CERTIFICATE=/etc/pki-testing/private/#{fqdn}.pem',
               'REGISTRY_HTTP_TLS_KEY=/etc/pki-testing/private/#{fqdn}.pem',
               'REGISTRY_AUTH=htpasswd',
-              'REGISTRY_AUTH_HTPASSWD_REALM=Beaker Realm',
+              'REGISTRY_AUTH_HTPASSWD_REALM=Beaker_Realm',
               'REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd'
             ],
             require => File['/tmp/auth/htpasswd']
