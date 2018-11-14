@@ -80,7 +80,7 @@ The `puppetlabs/docker` module can:
 
 The RedHat docker executable uses `dockerroot` as the docker_group.
 In simp_docker, a class delaration is used to configure the puppetlabs docker module.
-This declaration sets the value for the  docker::docker_group variable to `dockerroot
+This declaration sets the value for the  docker::docker_group variable to `dockerroot`
 to work with RedHats implementation of docker.  How ever,
 the puppetlabs docker::run module does not have access to this setting and
 does not allow the user to set the docker_group.  It mistakenly sets the runtime
