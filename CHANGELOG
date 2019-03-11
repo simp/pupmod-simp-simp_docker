@@ -1,6 +1,7 @@
 * Thu Mar 07 2019 Liz Nemsick <lnemsick.simp@gmail.com> - 0.2.1-0
 - Update the upper bound of stdlib to < 6.0.0
 - Update a URL in the README.md
+- Update to puppetlabs-docker 3.4.0
 
 * Fri Nov 09 2018 Trevor Vaughan <tvaughan@onyxpoint.com> - 0.2.0-0
 - Added a workaround to a long standing bug in puppetlabs/beaker that adds a
