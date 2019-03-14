@@ -5,7 +5,7 @@ fixtures:
     augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl
     docker:
       repo: https://github.com/simp/puppetlabs-docker
-      tag: 3.4.0
+      tag: 3.5.0
     iptables: https://github.com/simp/pupmod-simp-iptables
     simplib:  https://github.com/simp/pupmod-simp-simplib
     stdlib: https://github.com/simp/puppetlabs-stdlib
