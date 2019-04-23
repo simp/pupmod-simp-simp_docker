@@ -5,15 +5,11 @@
 # https://puppet.com/docs/pe/2018.1/overview/getting_support_for_pe.html
 # ------------------------------------------------------------------------------
 # Release       Puppet   Ruby   EOL
-# SIMP 6.2      4.10     2.1.9  TBD
-# PE 2016.4     4.10     2.1.9  2018-12-31 (LTS)
-# PE 2017.3     5.3      2.4.4  2018-12-31
-# SIMP 6.3      5.5      2.4.4  TBD***
-# PE 2018.1     5.5      2.4.4  2020-05 (LTS)***
+# SIMP 6.3      5.5.10   2.4.5  TBD***
+# PE 2018.1.7   5.5.10   2.4.5  2020-05 (LTS)***
 # PE 2019.0     6.0      2.5.1  2019-08-31^^^
 #
 # *** = Modules created for SIMP 6.3+ are not required to support Puppet < 5.5
-# ^^^ = SIMP doesn't support 6 yet; tests are info-only and allowed to fail
 
 ---
 language: ruby
@@ -38,19 +34,17 @@ addons:
 
 before_install:
   - rm -f Gemfile.lock
+  - gem install -v '~> 1.17' bundler
 
 global:
   - STRICT_VARIABLES=yes
 
 jobs:
-  allow_failures:
-    - name: 'Latest Puppet 6.x (allowed to fail)'
-
   include:
     - stage: check
       name: 'Syntax, style, and validation checks'
-      rvm: 2.4.4
-      env: PUPPET_VERSION="~> 5"
+      rvm: 2.4.5
+      env: PUPPET_VERSION="~> 5.5"
       script:
         - bundle exec rake check:dot_underscore
         - bundle exec rake check:test_file
@@ -62,42 +56,23 @@ jobs:
         - bundle exec puppet module build
 
     - stage: spec
-      name: 'Puppet 4.10 (SIMP 6.2, PE 2016.4)'
-      rvm: 2.1.9
-      env: PUPPET_VERSION="~> 4.10.0"
+      rvm: 2.4.5
+      name: 'Puppet 5.5.10 (SIMP 6.3, PE 2018.1)'
+      env: PUPPET_VERSION="5.5.10"
       script:
-        - bundle exec rake spec
+        - bundle exec rake spec_parallel
 
     - stage: spec
-      name: 'Puppet 5.3 (PE 2017.3)'
-      rvm: 2.4.4
-      env: PUPPET_VERSION="~> 5.3.0"
-      script:
-        - bundle exec rake spec
-
-    - stage: spec
-      rvm: 2.4.4
-      name: 'Puppet 5.5 (SIMP 6.3, PE 2018.1)'
-      env: PUPPET_VERSION="~> 5.5.0"
-      script:
-        - bundle exec rake spec
-
-    - stage: spec
-      name: 'Latest Puppet 5.x'
-      rvm: 2.4.4
-      env: PUPPET_VERSION="~> 5.0"
-      script:
-        - bundle exec rake spec
-
-    - stage: spec
-      name: 'Latest Puppet 6.x (allowed to fail)'
+      name: 'Latest Puppet 6.x'
       rvm: 2.5.1
-      env: PUPPET_VERSION="~> 6.0"
+      env: PUPPET_VERSION="~> 6"
       script:
-        - bundle exec rake spec
+        - bundle exec rake spec_parallel
 
+    # Uncomment the following for deployment tasks and set 'secure' in both
+    # sections appropriately
     - stage: deploy
-      rvm: 2.4.4
+      rvm: 2.4.5
       script:
         - true
       before_deploy:
@@ -106,7 +81,7 @@ jobs:
       deploy:
         - provider: releases
           api_key:
-            secure: "L5HXAZ2V7fMr47rbVraSz1uzsicD9O0JjYEQXnjBSo4CjXkFO9RNX7Zpb/P7DfFMjT3NlgnG9meLD2fIX3aGUoCdP1RHXXWfGVk2A7I7wruVMf9WCqFnYpL0s/G2wLECxhL+c51iXpmpyQqSFpweLa2xE2b1xm8Gd4BKzlt+TxVY3bPr3ha6m1HUloZ8iUy7RNcRJKmm0nDmmeL1pAgTu1RdWy+smDKXVFQEL3KUiHvMm+UIVSeNeRYEUVAK+UrUo1Zquv0Mv8uwycaNhOSMyZXOMvfuFipq0KyZvXzOsI2g4kQ+XUB5OX38ztqT0O+tCFSO6CC7ZLm4dnWyaJaEhw81sITKhz1xOrONTCH3ehfLzFW9EBmuajGQCMYbCs7dNQlF4mSWSo9YjI2zEthuZ/VlHzEoJ7bSvoPLHqWp6/8wTrl2m1Y95fRyWeoayET/ef7ojPOMhOoIDdsal8ONXEFHxAeWQsxmQ8dtpD9Jc/g9RH2NawPjCeDwyc0KVh5rFQcKLbtjM4QQefdV/OZyofWnerFKX7hueKwtn3hhjvUoOdnJ4fpwLuSNyl4Pu2aXBIh2//2Bu/vbr1tfaPNEEhX+sfASIPPEdxIHRY1duKue7xQ/n5GtWEulVAam12ROBqYORJJ7TgX/3xVAqrNrU7dfBaqqVb+f/utFRTJdTqU="
+            secure: "CHANGE_SECURE"
           skip_cleanup: true
           on:
             tags: true
@@ -114,7 +89,7 @@ jobs:
         - provider: puppetforge
           user: simp
           password:
-            secure: "Spfh3CdMXqsDKlYXBHWcihPdmGG4+sJ/gVCoZ6Z2B/C2CpHC8WzwxaniVClznwI8iHYY2mZUr1BKkBIMmo2xOdJDrQ0VSecCmV912ofEvAumvy9hUR0b39Lgj6WtvZQ0ppXVX0PXbtFiJMM6Ht8vc4A8G0fVJg89qII1M372WO0rbFKpJ+Qh9xg89Z8nWUntnaoO0gl35krGjSqjZQgUuk5NZnrkVcFt+bvV2ND4QL2HZpPuwiCPets2tTa0vBR6dU74r/o+g35uz49SvULF5l1MdveDp/lZwnDiAuJ37tKhDfMZWPXvPALpix4W3r77YiaTECoRRYNFMRBJvyfL11JfsFdk4bS6/v/raJ6I89eB06oPppDohnUgPNVwBcQu2Tm3YZttW6xC92fPysZKoM9xPzq8/YBkKJ9ac1WGTcLhD7nj0mwscns+qM4PdA/ipPuqatQ4SsjxXlLUxFZ0ScwI9VR5uZOSfxLAwzVUsiaY+g/pKljA/ssXOccfUX7v1MYiD/nbT6Blj7CDsgXJf30QFeT8K/QM65tu3Vtov+VzbJUGJ1rHYz/qNyKMWgFyX/GddcH6WE8yxzQFYdQJzGbF7Ak2QM/LQ1xpIg37kfg/t525uUeucLe5jdAVdo/qFTp3UfFMzhnD7MjdSTDXuGvkPYS3m1qavEM3ICP7eqQ="
+            secure: "CHANGE_PASSWORD"
           on:
             tags: true
             condition: '($SKIP_FORGE_PUBLISH != true)'
