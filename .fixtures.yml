@@ -9,4 +9,6 @@ fixtures:
     iptables: https://github.com/simp/pupmod-simp-iptables
     simplib:  https://github.com/simp/pupmod-simp-simplib
     stdlib: https://github.com/simp/puppetlabs-stdlib
-
+    yumrepo_core:
+      repo: https://github.com/simp/pupmod-puppetlabs-yumrepo_core.git
+      puppet_version: ">= 6.0.0"
