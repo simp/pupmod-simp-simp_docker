@@ -1,6 +1,6 @@
 {
   "name": "simp-simp_docker",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "SIMP Team",
   "summary": "A SIMP helper module for puppetlabs/docker",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.1 < 6.0.0"
+      "version_requirement": ">= 4.13.1 < 7.0.0"
     },
     {
       "name": "puppetlabs/docker",
@@ -48,7 +48,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.4 < 6.0.0"
+      "version_requirement": ">= 5.0.0 < 7.0.0"
     }
   ]
 }
